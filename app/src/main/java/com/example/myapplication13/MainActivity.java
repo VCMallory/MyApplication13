@@ -29,12 +29,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(mediaPlayer==null){
-                    mediaPlayer=MediaPlayer.create(MainActivity.this, Uri.parse("http://m701.music.126.net/20231115121452/f55639f52307b86396f5a2e173047c6a/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/30806266771/b0b4/3fb4/b5f5/f1a75aaac2e9f9fe74befa03073dc773.mp3"));
+                    mediaPlayer=MediaPlayer.create(MainActivity.this, R.raw.audio);
 
                 }else{
                     mediaPlayer.reset();
                     mediaPlayer.release();
-                    mediaPlayer=MediaPlayer.create(MainActivity.this, Uri.parse("http://m701.music.126.net/20231115121452/f55639f52307b86396f5a2e173047c6a/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/30806266771/b0b4/3fb4/b5f5/f1a75aaac2e9f9fe74befa03073dc773.mp3"));
+                    mediaPlayer=MediaPlayer.create(MainActivity.this, R.raw.audio);
 
                 }
                 mediaPlayer.start();
@@ -44,10 +44,10 @@ public class MainActivity extends AppCompatActivity {
         button_playorplance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(isplay){
+                if(isplay&&mediaPlayer!=null){
                     isplay=false;
                     mediaPlayer.start();
-                }else{
+                }else if(mediaPlayer!=null){
                     isplay=true;
                     mediaPlayer.pause();
                 }
@@ -57,10 +57,12 @@ public class MainActivity extends AppCompatActivity {
         button_stop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mediaPlayer.stop();
-                mediaPlayer.reset();
-                mediaPlayer.release();
-                mediaPlayer=null;
+                if(mediaPlayer!=null){
+                    mediaPlayer.stop();
+                    mediaPlayer.reset();
+                    mediaPlayer.release();
+                    mediaPlayer=null;
+                }
             }
         });
 
